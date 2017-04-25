@@ -10,7 +10,7 @@ Python Django study
    #### 0-1. Python 설치
    #### 0-2. 가상 개발환경 구축 (env라는 이름의 가상환경)
     pip3.4 install virtualenv
-    virtualenv env
+        virtualenv env
     source env/bin/activate
 
  ## 1. 뼈대 만들기
