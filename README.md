@@ -15,7 +15,7 @@ Python Django study
 
  ## 1. 뼈대 만들기
    #### 1-1. startproject : 프로젝트 생성
-    python manage.py startproject '프로젝트명'
+    python manage.py startproject '프로젝트명' .
    #### 1-2. settings.py : 프로젝트 설정 항목 변경
    #### 1-3. migrate : 테이블 생성
     python manage.py migrate
