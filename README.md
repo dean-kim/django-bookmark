@@ -9,22 +9,21 @@ Python Django study
 ## 0. 작업 준비
 ### 0-1. Python 설치
 ### 0-2. 가상 개발환경 구축
+    pip3.4 install virtualenv
+
 '''
-pip3.4 install virtualenv
-'''
-'''
-source env/bin/activate
+    source env/bin/activate
 '''
 
 ## 1. 뼈대 만들기
 ### 1-1. startproject : 프로젝트 생성
 '''
-python manage.py startproject '프로젝트명'
+    python manage.py startproject '프로젝트명'
 '''
 ### 1-2. settings.py : 프로젝트 설정 항목 변경
 ### 1-3. migrate : 테이블 생성
 '''
-python manage.py migrate
+    python manage.py migrate
 '''
 ### 1-4. createsuperuser: 프로젝트 관리자인 슈퍼유저 생성
 '''
