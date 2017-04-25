@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Django Bookmark Detail</title>
+</head>
+
+<body>
+
+<div id="content">
+
+    <!--
+    object 객체는 BookmarkDV 클래스형 뷰에서 컨텍스트 변수로 넘겨주는 Bookmark 클래스의 특정 객체임.
+    -->
+    <h1>{{ object.title }}</h1>
+
+    <ul>
+        <!--
+        {{ object.url }} 템플릿 변수의 내용을 순서 없는 리스트로 보여줌 (<ul>,<li> 태그 역할)
+        해당 텍스트에 URL 링크를 연결 (<a href> 속성 역할)
+        URL 링크는 {{ object.url }} 템플릿 변수값이므로 http://www.naver.com 과 유사함.
+        -->
+        <li>URL: <a href="{{ object.url }}">{{ object.url }}</a> </li>
+    </ul>
+</div>
+</body>
+</html>

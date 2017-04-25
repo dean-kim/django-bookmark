@@ -1,3 +1,4 @@
+# coding=utf-8
 """mysite URL Configuration
 
 The `urlpatterns` list routes URLs to views. For more information please see:
@@ -24,14 +25,14 @@ from bookmark.views import BookmarkLV, BookmarkDV
 # url() 함수는 다음과 같이 5개의 인자를 가지고 있음 앞의 2개는 필수인자 뒤 3개는 선택적 인자임
 # url(regex, view, kwargs=None, name=None, prefix='')
 urlpatterns = [
-    """
-    admin site 관련 URLconf가 정의
-    URLconf를 다른 곳에서 정의한 URLconf를 가져와서 재활용하고자 할 때는 include() 함수를 사용.
-    다만 Admin site에 대한 URLconf인 admin.site.urls를 재활용할 때는 예외적으로 include()를 사용하지 않아도 가능
-    다음의 2가지 모두 가능함.
-    url(r'^admin/', admin.site.urls)
-    url(r'^admin/', include(admin.site.urls))
-    """
+    # admin site 관련 URLconf가 정의
+    # URLconf를 다른 곳에서 정의한 URLconf를 가져와서 재활용하고자 할 때는 include() 함수를 사용.
+    # 다만 Admin site에 대한 URLconf인 admin.site.urls를 재활용할 때는 예외적으로 include()를 사용하지 않아도 가능
+    # 다음의 2가지 모두 가능함.
+    # url(r'^admin/', admin.site.urls)
+    # url(r'^admin/', include(admin.site.urls))
+    url(r'^admin/', admin.site.urls),
+
     # Class-based views for Bookmark app
 
     # 뷰를 클래스형 뷰로 정의하기 위해 각 URL에 따른 해당 클래스 및 as_view 메소드를 지정

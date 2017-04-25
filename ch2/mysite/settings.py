@@ -105,6 +105,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
 # LANGUAGE_CODE = 'en-us'
+# Admin 페이지가 한글로 표시됨
 LANGUAGE_CODE = 'ko-kr'
 
 # TIME_ZONE = 'UTC'
