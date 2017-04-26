@@ -9,6 +9,7 @@
     <ul>
         {# object_list 객체는 BookmarkLV 클래스형 뷰에서 넘겨주는 파라미터 #}
         {% for bookmark in object_list %}
+
         {# object_list 객체의 내용을 순회하면서 title을 화면에 순서 없는 리스트로 보여줌. 또한 각 텍스트에 URL 링크를 연결. #}
         {# URL 링크는 /bookmark/1/ 과 같은 형식임. #}
         {# {{ bookmark }} 템플릿 변수는 Bookmark 테이블의 특정 레코드 하나를 의미함. #}

@@ -10,9 +10,12 @@ For the full list of settings and their values, see
 https://docs.djangoproject.com/en/1.11/ref/settings/
 """
 
+# os is among the modules that are loaded when Python starts up.
+# It assigns its path attribute to an os-specific path module.
 import os
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
+# Django project directory. The same directory where manage.py is located.
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 
 
@@ -20,6 +23,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
+
 SECRET_KEY = '86cjc912vqnxh(w%wxps%+f@+#pw19f)y6jbyrs8lu_1t*icgb'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -38,6 +42,7 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'bookmark.apps.BookmarkConfig',
+    'blog.apps.BlogConfig',
 ]
 
 MIDDLEWARE = [
@@ -105,7 +110,7 @@ AUTH_PASSWORD_VALIDATORS = [
 # https://docs.djangoproject.com/en/1.11/topics/i18n/
 
 # LANGUAGE_CODE = 'en-us'
-# Admin 페이지가 한글로 표시됨
+# Admin page display in Korean
 LANGUAGE_CODE = 'ko-kr'
 
 # TIME_ZONE = 'UTC'
