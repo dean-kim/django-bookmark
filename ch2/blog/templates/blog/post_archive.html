@@ -1,0 +1,23 @@
+<h1>Post Archive until {% now "N d, Y" %}</h1>
+<ul>
+    {# date_list 컨텍스트 변수는 DateQuerySet 객체 리스트를 담고 있음. #}
+    {# DateQuerySet 객체 리스트는 QuerySet 객체 리스트에서 날짜 정보만을 추출해 담고 있는 객체 리스트 #}
+    {# DateQuerySet에 들어 있는 객체는 datetime.date 타입의 객체 #}
+    {% for date in date_list %}
+    <li style="display: inline;">
+        {# 연도 메뉴는 Year-YYYY 형식의 텍스트, YYYY연도에 생성되거나 수정된(modify_date 컬럼 기준) 포스트를 보여주는 URL이 링크 연결되어 있음 #}
+        <a href="{% url 'blog:post_year_archive' date|date:'Y' %}">Year-{{ date|date:"Y" }}</a>
+    </li>
+    {% endfor %}
+</ul>
+<br />
+
+<div>
+    <ul>
+        {# 디폴트 컨택스트 변수인 object_list와 latest 둘 다 가능, 여기에는 뷰에서 넘겨준 객체 리스트가 담겨 있음 #}
+        {% for post in object_list %}
+        <li>{{ post.modify_date|date:"Y-m-d" }}&nbsp;&nbsp;&nbsp;
+        <a href="{{ post.get_absolute_url }}"><strong>{{ post.title }}</strong></a></li>
+        {% endfor %}
+    </ul>
+</div>
