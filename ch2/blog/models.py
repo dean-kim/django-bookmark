@@ -36,25 +36,43 @@ class Post(models.Model):
     """
 
     slug = models.SlugField('SLUG', unique=True, allow_unicode=True, help_text='one word for title alias.')
+    # description 칼럼은 빈칸(blank)도 가능합니다.
     description = models.CharField('DESCRIPTION', max_length=100, blank=True, help_text='simple description text')
+    # content 컬럼은 TextField를 사용했으므로 여러 줄 입력이 가능합니다.
     content = models.TextField('CONTENT')
+    # create_date 컬럼은 날짜와 시간을 입력하는 DateTimeField이며, auto_now_add 속성은 객체가 생성될 때의 시각을 자동으로 기록하게 합니다.
     create_date = models.DateTimeField('Create Date', auto_now_add=True)
+    # modify_date 컬럼은 날짜와 시간을 입력하는 DateTimeField이며, auto_now 속성은 객체가 데이터베이스에 저장될 때의 시각을 자동으로 기록하게 합니다.
+    # 즉, 객체가 변경될 때의 시각이 기록되는 것임.
     modify_date = models.DateTimeField('Modify Date', auto_now=True)
 
+    # 필드 속성 외에 필요한 파라미터가 있으면, Meta 내부 클래스로 정의합니다.
     class Meta:
+        # 테이블의 별칭을 단수와 복수로 가질 수 있는데, 단수 별칭을 'post'로 함.
         verbose_name = 'post'
+        # 테이블의 복수 별칭을 'posts'로 함.
         verbose_name_plural = 'posts'
+        # 데이터베이스에 저장되는 테이블 이름을 'my_post'로 지정. 이 항목을 생략하면 디폴트는 '앱명_모델클래스명을 테이블 이름으로 사용함.
+        # 이름을 지정하지 않았다면 'blog_post'가 되었을 것임.
         db_table = 'my_post'
+        # 모델 객체 출혁 시 'modyfy_date' 컬럼을 기준으로 내림차순으로 정렬.
         ordering = ('-modify_date',)
 
+    # 객체의 문자열을 객체.title로 표시되도록 함.
     def __str__(self):
         return self.title
 
+    # get_absolute_url() 메소드는 이 메소드가 정의된 객체를 지칭하는 URL을 반환.
+    # 메소드 내에서는 장고의 내장 함수인 reverse()를 호출함.
     def get_absolute_url(self):
         return reverse('blog:post_detail', args=(self.slug,))
 
+    # get_previous_post() 메소드는 modify_date 컬럼을 기준으로 이전 포스트를 반환
+    # 메소드 내에서는 장고의 내장 함수인 get_previous_by_modify_date()를 호출함
     def get_previous_post(self):
         return self.get_previous_by_modify_date()
 
+    # get_next_post() 메소드는 modify_date 컬럼을 기준으로 다음 포스트를 반환
+    # 메소드 내에서는 장고의 내장 함수인 get_next_by_modify_date()를 호출함
     def get_next_post(self):
         return self.get_next_by_modify_date()

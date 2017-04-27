@@ -1,3 +1,4 @@
+# -*- coding: euckr -*-
 # coding=utf-8
 """mysite URL Configuration
 
@@ -14,30 +15,34 @@ Including another URLconf
     1. Import the include() function: from django.conf.urls import url, include
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
-# ì¥ê³ ì˜ ë‚´ì¥í•¨ìˆ˜ì¸ url() í•¨ìˆ˜ import
-from django.conf.urls import url
+# Àå°íÀÇ ³»ÀåÇÔ¼öÀÎ url() ÇÔ¼ö import
+from django.conf.urls import include, url
 from django.contrib import admin
 
-# URLconfì—ì„œ ë·°ë¥¼ í˜¸ì¶œí•˜ë¯€ë¡œ ë·° ëª¨ë¸ì˜ ê´€ë ¨ í´ë˜ìŠ¤ë¥¼ import.
-from bookmark.views import BookmarkLV, BookmarkDV
+# URLconf¿¡¼­ ºä¸¦ È£ÃâÇÏ¹Ç·Î ºä ¸ğµ¨ÀÇ °ü·Ã Å¬·¡½º¸¦ import.
+# from bookmark.views import BookmarkLV, BookmarkDV - APP_URLCONF ·Î ¿Å±æ ÁÙÀ» ÁÖ¼®Ã³¸®ÇÔ.
 
 
-# url() í•¨ìˆ˜ëŠ” ë‹¤ìŒê³¼ ê°™ì´ 5ê°œì˜ ì¸ìë¥¼ ê°€ì§€ê³  ìˆìŒ ì•ì˜ 2ê°œëŠ” í•„ìˆ˜ì¸ì ë’¤ 3ê°œëŠ” ì„ íƒì  ì¸ìì„
+# url() ÇÔ¼ö´Â ´ÙÀ½°ú °°ÀÌ 5°³ÀÇ ÀÎÀÚ¸¦ °¡Áö°í ÀÖÀ½ ¾ÕÀÇ 2°³´Â ÇÊ¼öÀÎÀÚ µÚ 3°³´Â ¼±ÅÃÀû ÀÎÀÚÀÓ
 # url(regex, view, kwargs=None, name=None, prefix='')
 urlpatterns = [
-    # admin site ê´€ë ¨ URLconfê°€ ì •ì˜
-    # URLconfë¥¼ ë‹¤ë¥¸ ê³³ì—ì„œ ì •ì˜í•œ URLconfë¥¼ ê°€ì ¸ì™€ì„œ ì¬í™œìš©í•˜ê³ ì í•  ë•ŒëŠ” include() í•¨ìˆ˜ë¥¼ ì‚¬ìš©.
-    # ë‹¤ë§Œ Admin siteì— ëŒ€í•œ URLconfì¸ admin.site.urlsë¥¼ ì¬í™œìš©í•  ë•ŒëŠ” ì˜ˆì™¸ì ìœ¼ë¡œ include()ë¥¼ ì‚¬ìš©í•˜ì§€ ì•Šì•„ë„ ê°€ëŠ¥
-    # ë‹¤ìŒì˜ 2ê°€ì§€ ëª¨ë‘ ê°€ëŠ¥í•¨.
+    # admin site °ü·Ã URLconf°¡ Á¤ÀÇ
+    # URLconf¸¦ ´Ù¸¥ °÷¿¡¼­ Á¤ÀÇÇÑ URLconf¸¦ °¡Á®¿Í¼­ ÀçÈ°¿ëÇÏ°íÀÚ ÇÒ ¶§´Â include() ÇÔ¼ö¸¦ »ç¿ë.
+    # ´Ù¸¸ Admin site¿¡ ´ëÇÑ URLconfÀÎ admin.site.urls¸¦ ÀçÈ°¿ëÇÒ ¶§´Â ¿¹¿ÜÀûÀ¸·Î include()¸¦ »ç¿ëÇÏÁö ¾Ê¾Æµµ °¡´É
+    # ´ÙÀ½ÀÇ 2°¡Áö ¸ğµÎ °¡´ÉÇÔ.
     # url(r'^admin/', admin.site.urls)
     # url(r'^admin/', include(admin.site.urls))
     url(r'^admin/', admin.site.urls),
 
-    # Class-based views for Bookmark app
+    # ºÏ¸¶Å© ¾ÛÀÇ APP_URLCONF¸¦ Æ÷ÇÔÇÏ°í ÀÌ¸§°ø°£À» 'bookmark'¶ó°í ÁöÁ¤
+    url(r'^bookmark/', include('bookmark.urls', namespace='bookmark')),
+    url(r'^blog/', include('blog.urls', namespace='blog')),
 
-    # ë·°ë¥¼ í´ë˜ìŠ¤í˜• ë·°ë¡œ ì •ì˜í•˜ê¸° ìœ„í•´ ê° URLì— ë”°ë¥¸ í•´ë‹¹ í´ë˜ìŠ¤ ë° as_view ë©”ì†Œë“œë¥¼ ì§€ì •
-    # URL /bookmark/ìš”ì²­ì„ ì²˜ë¦¬í•  ë·° í´ë˜ìŠ¤ë¥¼ BookmarkLVë¡œ ì§€ì •, URL íŒ¨í„´ì˜ ì´ë¦„ì€ 'index'ë¡œ ëª…ëª…
-    url(r'^bookmark/$', BookmarkLV.as_view(), name='index'),
-    # URL /bookmark/ìˆ«ì ìš”ì²­ì„ ì²˜ë¦¬í•  ë·° í´ë˜ìŠ¤ë¥¼ BookmarkDVë¡œ ì§€ì •, URL íŒ¨í„´ì˜ ì´ë¦„ì€ 'detail'ë¡œ ëª…
-    url(r'^bookmark/(?P<pk>\d+)/$', BookmarkDV.as_view(), name='detail'),
+    # Class-based views for Bookmark app - ¾Æ·¡ÀÇ ÄÚµåµéÀº APP_URLCONF ·Î ¿Å±â¹Ç·Î ÁÖ¼®Ã³¸®
+
+    # ºä¸¦ Å¬·¡½ºÇü ºä·Î Á¤ÀÇÇÏ±â À§ÇØ °¢ URL¿¡ µû¸¥ ÇØ´ç Å¬·¡½º ¹× as_view ¸Ş¼Òµå¸¦ ÁöÁ¤
+    # URL /bookmark/¿äÃ»À» Ã³¸®ÇÒ ºä Å¬·¡½º¸¦ BookmarkLV·Î ÁöÁ¤, URL ÆĞÅÏÀÇ ÀÌ¸§Àº 'index'·Î ¸í¸í
+    # url(r'^bookmark/$', BookmarkLV.as_view(), name='index'),
+    # URL /bookmark/¼ıÀÚ ¿äÃ»À» Ã³¸®ÇÒ ºä Å¬·¡½º¸¦ BookmarkDV·Î ÁöÁ¤, URL ÆĞÅÏÀÇ ÀÌ¸§Àº 'detail'·Î ¸í¸í
+    # url(r'^bookmark/(?P<pk>\d+)/$', BookmarkDV.as_view(), name='detail'),
 ]
