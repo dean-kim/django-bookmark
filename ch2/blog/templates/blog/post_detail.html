@@ -1,0 +1,29 @@
+{# object 객체는 PostDV 클래스형 뷰에서 컨텍스트 변수로 넘겨주는 Post 클래스의 특정 객체 #}
+<h2>{{ object.title }}</h2>
+
+<p class="other_posts">
+    {# get_previous_by_modify_date 함수는 modify_date 컬럼 기준으로 이전 객체를 반환. 변경 날짜가 현재 객체보다 오래된 객체가 있는지 확인 #}
+    {% if object.get_previous_by_modify_date %}
+    {# get_previous_post 함수는 이전 객체(포스트)를, get_previous_post.get_absolute_url 함수는 이전 객체를 지칭하는 URL 패턴을 반환 #}
+    {# 이 문장은 이전 객체의 문자열 텍스트를 출력하고 그 텍스트에 URL 링크를 연결함 #}
+    {# &laquo;는 HTML 특수문자 '<<'를 의미 #}
+    <a href="{{ object.get_previous_post.get_absolute_url }}" title="View previous post"> &laquo;--{{ object.get_previous_post }}</a>
+    {% endif %}
+
+    {# get_next_by_modify_date 함수는 modify_date 컬럼 기준으로 다음 객체를 반환. 변경 날짜가 현재 객체보다 최신 객체가 있는지 확인 #}
+    {% if object.get_next_by_modify_date %}
+    {# get_next_post 함수는 다음 객체(포스트)를, get_next_post.get_absolute_url 함수는 다음 객체를 지칭하는 URL 패턴을 반환 #}
+    {# 이 문장은 이전 객체의 문자열 텍스트를 출력하고 그 텍스트에 URL 링크를 연결함 #}
+    {# &raquo;는 HTML 특수문자 '>>'를 의미 #}
+    | <a href="{{ object.get_next_post.get_absolute_url }}" title="View next post">{{ object.get_next_post }}--&raquo;</a>
+    {% endif %}
+</p>
+
+{# 객체의 modify_date 속성값을 "j F Y"포맷으로 출력 #}
+<p class="date">{{ object.modify_date|date:"j F Y" }}</p>
+<br />
+
+<div class="body">
+    {# 포스트 객체의 내용(content 속성값)을 출력, linebreaks 템플릿 필터는 \n(new line)을 인식할 수 있게 함 #}
+    {{ object.content|linebreaks }}
+</div>
