@@ -1,0 +1,24 @@
+{# year 컨텍스트 변수는 해당 연도에 대한 datetime.date 타입의 객체, "Y"포맷 문자열은 2015 형식임 #}
+<h1>Post Archive for {{ year|date:"Y" }}</h1>
+
+<ul>
+    {# date_list 컨텍스트 변수는 DateQuerySet 객체 리스트를 담고 있음. #}
+    {# DateQuerySet 객체 리스트는 QuerySet 객체 리스트에서 날짜 정보만을 추출해 담고 있는 객체 리스트 #}
+    {# DateQuerySet에 들어 있는 객체는 datetime.date 타입의 객체 #}
+    {% for date in date_list %}
+    <li style="display: inline;">
+        {# 월 메뉴는 "F", July 형식의 텍스트 해당 연월에 생성 또는 수정된(modify_date) 포스트를 보여주는 URL이 링크되어 있음 #}
+        <a href="{% url 'blog:post_month_archive' year|date:'Y' date|date:'b' %}">{{ date|date:"F" }}</a>
+    </li>
+    {% endfor %}
+</ul>
+<br />
+
+<div>
+    <ul>
+        {# latest 컨텍스트는 ArchiveIndexView에서만 정의된 변수이므로 여기서는 object_list를 사용 #}
+        {% for post in object_list %}
+        <li>{{ post.modify_date|date:"Y-m-d" }}&nbsp;&nbsp;&nbsp;
+        <a href="{{ post.get_absolute_url }}"><strong>{{ post.title }}</strong></a></li>
+    </ul>
+</div>
