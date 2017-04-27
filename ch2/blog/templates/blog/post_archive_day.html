@@ -1,0 +1,11 @@
+{# day 컨텍스트 변수는 해당 월에 대한 datetime.date 타입의 객체임, "N d, Y" 포맷 문자열은 May 05, 2015 형식임 #}
+<h1>Post Archive for {{ day|date:"N d, Y" }}</h1>
+
+<div>
+    <ul>
+        {% for post in object_list %}
+        <li>{{ post.modify_date|date:"Y-m-d" }}&nbsp;&nbsp;&nbsp;
+        <a href="{{ post.get_absolute_url }}"><strong>{{ post.title }}</strong></a></li>
+        {% endfor %}
+    </ul>
+</div>
