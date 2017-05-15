@@ -19,6 +19,8 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+from mysite.views import HomeView
+
 # URLconf에서 뷰를 호출하므로 뷰 모델의 관련 클래스를 import.
 # from bookmark.views import BookmarkLV, BookmarkDV - APP_URLCONF 로 옮길 줄을 주석처리함.
 
@@ -34,6 +36,8 @@ urlpatterns = [
     # url(r'^admin/', admin.site.urls)
     # url(r'^admin/', include(admin.site.urls))
     url(r'^admin/', admin.site.urls),
+
+    url(r'^$', HomeView.as_view(), name='home'),
 
     # 북마크 앱의 APP_URLCONF를 포함하고 이름공간을 'bookmark'라고 지정
     url(r'^bookmark/', include('bookmark.urls', namespace='bookmark')),
