@@ -10,6 +10,11 @@ from django.views.generic.dates import DayArchiveView, TodayArchiveView
 # 테이블 조회를 위해 Post 모델 클래스를 임포트
 from blog.models import Post
 
+# REST
+from django.http.response import HttpResponse
+from rest_framework.generics import GenericAPIView
+from rest_framework import serializers, mixins
+
 # Create your views here.
 
 # ListView
