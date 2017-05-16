@@ -1,11 +1,8 @@
-<!DOCTYPE html>
-<html>
-<head>
-    <title>Django Bookmark Detail</title>
-</head>
+{% extends "base.html" %}
 
-<body>
+{% block title %}Django Bookmark Detail{% endblock %}
 
+{% block content %}
 <div id="content">
 
     <!--
@@ -22,5 +19,4 @@
         <li>URL: <a href="{{ object.url }}">{{ object.url }}</a> </li>
     </ul>
 </div>
-</body>
-</html>
+{% endblock %}
