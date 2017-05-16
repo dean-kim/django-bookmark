@@ -18,7 +18,7 @@
         {# <a href> 기능에 의해 'detail' URL 패턴 (/bookmark/1/ 형식)으로 웹 요청을 보낸다는 의미 #}
         {# {% url %} 템플릿 태그는 URL 패턴에서 URL 문자열을 추출하는 역할을 함. #}
 
-        <li><a href="{% url 'detail' bookmark.id %}">{{ bookmark }}</a></li>
+        <li><a href="{% url 'bookmark:detail' bookmark.id %}">{{ bookmark }}</a></li>
         {% endfor %}
     </ul>
 </div>

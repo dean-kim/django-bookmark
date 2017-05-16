@@ -1,4 +1,11 @@
-{# object 객체는 PostDV 클래스형 뷰에서 컨텍스트 변수로 넘겨주는 Post 클래스의 특정 객체 #}
+{% extends "base.html" %}
+
+{% block title %}post_detail.html{% endblock %}
+
+{% block content %}
+
+<div id="content">
+    {# object 객체는 PostDV 클래스형 뷰에서 컨텍스트 변수로 넘겨주는 Post 클래스의 특정 객체 #}
 <h2>{{ object.title }}</h2>
 
 <p class="other_posts">
@@ -27,3 +34,5 @@
     {# 포스트 객체의 내용(content 속성값)을 출력, linebreaks 템플릿 필터는 \n(new line)을 인식할 수 있게 함 #}
     {{ object.content|linebreaks }}
 </div>
+</div>
+{% endblock %}

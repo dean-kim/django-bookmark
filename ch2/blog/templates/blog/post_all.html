@@ -1,22 +1,21 @@
-{% comment %}
-템플릿에서 URL 추출 함수
-템플릿에서 URL을 추출하는 문법은 2개가 있음.
-1. get_absolute_url() 메소드 호출
-2. {% url %} 템플릿 태그 사용
-두 가지 모두 URL 패턴명을 이용한다는 점은 동일, {% url %} 태그는 직접 태그의 인자로 URL 패턴명을 사용하는 반면
-get_absolute_url() 메소드에서는 간접적으로 URL 패턴명을 사용함.
-get_absolute_url() 메소드는 모델 클래스의 메소드로 정의되어 있어야 사용 가능함. 이 메소드를 정의할 때 reverse() 함수를
-사용하고, recerse() 함수의 인자로 URL 패턴명을 사용하고 있음. 다음의 두 문장은 동일한 문장임.
-    <a href="{{ post.get_absolute_url }}">{{ post.title }}</a>
-    <a href="{% url 'blog:post_detail' post.slug %}">{{ post.title }}</a>
+{% extends "base.html" %}
+{# 템플릿에서 URL 추출 함수 #}
+{# 템플릿에서 URL을 추출하는 문법은 2개가 있음. #}
+{# 1. get_absolute_url() 메소드 호출 #}
+{# 2. {% url %} 템플릿 태그 사용 #}
+{# 두 가지 모두 URL 패턴명을 이용한다는 점은 동일, {% url %} 태그는 직접 태그의 인자로 URL 패턴명을 사용하는 반면 #}
+{# get_absolute_url() 메소드에서는 간접적으로 URL 패턴명을 사용함. #}
+{# get_absolute_url() 메소드는 모델 클래스의 메소드로 정의되어 있어야 사용 가능함. 이 메소드를 정의할 때 reverse() 함수를 #}
+{# 사용하고, recerse() 함수의 인자로 URL 패턴명을 사용하고 있음. 다음의 두 문장은 동일한 문장임. #}
 
-{% endcomment %}
+{% block title %}post_all.html{% endblock %}
+
+{% block content %}
 
 {# 별도의 HTML 태그 지정이 없으면 장고는 <body> 영역으로 간주함. #}
-
-<h1>Blog List</h1>
-
-{# posts 객체는 PostLV 클래스 뷰에서 넘겨주는 컨텍스트 변수로서 Post 객체 리스트가 담겨 있음. #}
+<div id="content">
+    <h1>Blog List</h1>
+    {# posts 객체는 PostLV 클래스 뷰에서 넘겨주는 컨텍스트 변수로서 Post 객체 리스트가 담겨 있음. #}
 {# posts 객체 내용을 순회하면서 Post개게의 title, modify_date, description 속성을 출력함. #}
 {% for post in posts %}
 
@@ -47,3 +46,5 @@ get_absolute_url() 메소드는 모델 클래스의 메소드로 정의되어 �
         {% endif %}
     </span>
 </div>
+</div>
+{% endblock %}

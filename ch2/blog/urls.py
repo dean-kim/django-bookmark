@@ -27,7 +27,7 @@ urlpatterns = [
 
     # Example: /2012/
     # URL /blog/4자리 숫자/ 요청을 처리할 뷰 클래스를 PostYAV로 지정, URL 패턴의 이름은 이름공간을 포함해 'blog:post_year_archive'
-    url(r'^<year>\d{4}', PostYAV.as_view(), name='post_year_archive'),
+    url(r'^(?P<year>\d{4})/$', PostYAV.as_view(), name='post_year_archive'),
 
     # Example: /2012/nov/
     # URL /blog/4자리 숫자/3자리 소문자/ 요청을 처리할 뷰 클래스를 PostMAV로 지정, URL 패턴의 이름은 이름공간을 포함해 'blog:post_month_archive'
