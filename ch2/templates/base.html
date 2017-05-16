@@ -5,7 +5,7 @@
 
     {% load staticfiles %}
     <link rel="stylesheet" type="text/css" href="{% static "css/base.css" %}" />
-    <link rel="stylesheet" type="text/css" href="{% block extrastyle %}{end block}" />
+    <link rel="stylesheet" type="text/css" href="{% block extrastyle %}{% endblock %}" />
 
 </head>
 
@@ -20,9 +20,9 @@
 </div>
 
 <div id="menu">
-    <li><a href="#">Home</a></li>
-    <li><a href="#">Bookmark</a></li>
-    <li><a href="#">Blog</a></li>
+    <li><a href="{% url 'home' %}">Home</a></li>
+    <li><a href="{% url 'bookmark:index' %}">Bookmark</a></li>
+    <li><a href="{% url 'blog:index' %}">Blog</a></li>
     <li><a href="#">Photo</a></li>
 
     <li><a href="#">Add&bigtriangledown;</a>
@@ -40,9 +40,9 @@
         </ul>
     </li>
 
-    <li><a href="#">Archive</a></li>
+    <li><a href="{% url 'blog:post_archive' %}">Archive</a></li>
     <li><a href="#">Search</a></li>
-    <li><a href="#">Admin</a></li>
+    <li><a href="{% url 'admin:index' %}">Admin</a></li>
 </div>
 
 {% block content %}{% endblock %}
