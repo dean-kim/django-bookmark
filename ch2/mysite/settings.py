@@ -47,6 +47,7 @@ INSTALLED_APPS = [
     'rest_framework',
     # REST framework Swagger
     'rest_framework_swagger',
+    'tagging.apps.TaggingConfig',
 ]
 
 MIDDLEWARE = [

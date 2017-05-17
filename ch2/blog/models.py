@@ -8,6 +8,8 @@ from django.db import models
 
 # reverse() 함수를 사용하기 위해 임포트 reverse() 함수는 URL 패턴을 만들어주는 장고의 내장 함수임.
 from django.core.urlresolvers import reverse
+
+from tagging.fields import TagField
 # Create your models here.
 
 @python_2_unicode_compatible
@@ -45,6 +47,7 @@ class Post(models.Model):
     # modify_date 컬럼은 날짜와 시간을 입력하는 DateTimeField이며, auto_now 속성은 객체가 데이터베이스에 저장될 때의 시각을 자동으로 기록하게 합니다.
     # 즉, 객체가 변경될 때의 시각이 기록되는 것임.
     modify_date = models.DateTimeField('Modify Date', auto_now=True)
+    tah = TagField()
 
     # 필드 속성 외에 필요한 파라미터가 있으면, Meta 내부 클래스로 정의합니다.
     class Meta:
