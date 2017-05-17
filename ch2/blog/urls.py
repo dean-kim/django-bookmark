@@ -40,4 +40,10 @@ urlpatterns = [
     # Example: /today/
     # URL /blog/today/ 요청을 처리할 뷰 클래스를 PostYAV로 지정, URL 패턴의 이름은 이름공간을 포함해 'blog:post_today_archive'
     url(r'^today/$', PostTAV.as_view(), name='post_today_archive'),
+
+    # Example: /tag/
+    url(r'^tag/$', TagTV.as_view(), name='tag_cloud'),
+
+    # Example: /tag/tagname/
+    url(r'^tag/(?P<tag>[^/]+(?u))/$', PostTOL.as_view(), name='tagged_object_list'),
 ]

@@ -3,7 +3,7 @@
 from __future__ import unicode_literals
 
 # 뷰 작성에 필요한 클래스형 제레릭 뷰를 임포트
-from django.views.generic import ListView, DetailView
+from django.views.generic import ListView, DetailView, TemplateView
 from django.views.generic.dates import ArchiveIndexView, YearArchiveView, MonthArchiveView
 from django.views.generic.dates import DayArchiveView, TodayArchiveView
 
@@ -14,6 +14,9 @@ from blog.models import Post
 from django.http.response import HttpResponse
 from rest_framework.generics import GenericAPIView
 from rest_framework import serializers, mixins
+
+from tagging.models import Tag, TaggedItem
+from tagging.views import TaggedObjectList
 
 # Create your views here.
 
@@ -32,6 +35,11 @@ class PostLV(ListView):
     # 한 페이지에 보여주는 객체 리스트의 숫자는 2, paginate_by 속성을 정의하면 장고가 제공하는 페이징 기능을 사용할 수 있음.
     # 페이징 기능이 활성화되면 객체 리스트 하단에 페이지를 이동할 수 있는 버튼을 만들 수 있음.
     paginate_by = 2
+
+class PostTOL(TaggedObjectList):
+    model = Post
+    template_name = 'tagging/tagging_post_list.html'
+
 
 # DetailView
 # DetailView 제네릭 뷰를 상속받아 PostDV 클래스형 뷰를 정의
@@ -88,3 +96,7 @@ class PostTAV(TodayArchiveView):
     model = Post
     # 기준이 되는 날짜 필드는 'modify_date'컬럼을 사용. 변경 날짜가 오늘인 포스트를 검색해 그 포스트들의 리스트를 출력함.
     date_field = 'modify_date'
+
+# TemplateView
+class TagTV(TemplateView):
+    template_name = 'tagging/tagging_cloud.html'

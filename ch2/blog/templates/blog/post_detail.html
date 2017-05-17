@@ -34,5 +34,14 @@
     {# 포스트 객체의 내용(content 속성값)을 출력, linebreaks 템플릿 필터는 \n(new line)을 인식할 수 있게 함 #}
     {{ object.content|linebreaks }}
 </div>
+    <div>
+        <b>TAGS: </b>
+        {% load tagging_tags %}
+        {% tags_for_object object as tags %}
+        {% for tag in tags %}
+        <a href="{% url 'blog:tagged_object_list' tag.name %}">{{tag.name}}</a>
+        {% endfor %}
+        <a href="{% url 'blog:tag_cloud' %}"><i>[ TagCloud ]</i></a>
+    </div>
 </div>
 {% endblock %}
