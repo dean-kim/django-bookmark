@@ -1,0 +1,29 @@
+{% extends "base.html" %}
+
+{% block title %}post_search.html{% endblock %}
+
+{% block content %}
+<div id="content">
+    <h1>Blog Search</h1>
+    {# 검색폼 출력, Submit 버튼을 누르면 POST 방식으로 현재와 동일한 URL로 요청이 전송됨. #}
+    {# CSRF 공격을 방지하기 위해 {% csrf_token %} 태그를 사용. #}
+    <form action="." method="post">{% csrf_token %}
+        {# 폼을 테이블 형식으로 표시, 여기서 폼은 뷰에서 넘겨준 PostSearchForm 객체 #}
+    {{ form.as_table }}
+    <input type="submit" value="Submit" />
+    </form>
+
+    <br/><br/>
+
+    {% if object_list %}
+    {% for post in object_list %}
+    <h2><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></h2>
+    {{ post.modify_date|date:"N d, Y" }}
+    <p>{{ post.description }}</p>
+    {% endfor %}
+
+    {% elif search_term %}
+    <b><i>Search Word({{ search_term }}) Not Found</i></b>
+    {% endif %}
+</div>
+{% endblock %}
