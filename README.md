@@ -1,7 +1,7 @@
 # django-bookmark
 Python Django study
 
-이 스터디는 한빛미디어 출판사의 'Django를 활용한 쉽고 빠른 웹 개발 파이썬 웹 프로그래밍의 예제를 실습한 스터디입니다.'
+이 스터디는 한빛미디어 출판사의 'Django를 활용한 쉽고 빠른 웹 개발 파이썬 웹 프로그래밍의 예제'를 실습한 스터디입니다.
 
 
 # 작업 순서
@@ -11,7 +11,7 @@ Python Django study
    #### 0-2. 가상 개발환경 구축(env라는 개발환경 구축)
     pip3.4 install virtualenv
     virtualenv env
-    source env/bin/activate
+    source env/bin/activate(가상 개발환경 활성화, 비활성화는 deactivate)
 
  ## 1. 뼈대 만들기
    #### 1-1. startproject : 프로젝트 생성
