@@ -11,7 +11,7 @@ Python Django study
    #### 0-2. 가상 개발환경 구축(env라는 개발환경 구축)
     pip3.4 install virtualenv
     virtualenv env
-    source env/bin/activate (가상 개발환경 구동, 가상개발 환경에서 나오려면 deactivate)
+    source env/bin/activate
 
  ## 1. 뼈대 만들기
    #### 1-1. startproject : 프로젝트 생성
