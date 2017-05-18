@@ -18,6 +18,12 @@ from rest_framework import serializers, mixins
 from tagging.models import Tag, TaggedItem
 from tagging.views import TaggedObjectList
 
+from django.views.generic.edit import FormView
+from blog.forms import PostSearchForm
+from django.db.models import Q
+from django.shortcuts import render
+
+
 # Create your views here.
 
 # ListView
@@ -96,6 +102,20 @@ class PostTAV(TodayArchiveView):
     model = Post
     # 기준이 되는 날짜 필드는 'modify_date'컬럼을 사용. 변경 날짜가 오늘인 포스트를 검색해 그 포스트들의 리스트를 출력함.
     date_field = 'modify_date'
+
+class SearchFormView(FormView):
+    form_class = PostSearchForm
+    template_name = 'blog/post_search.html'
+
+    def form_valid(self, form):
+        schWord = '%s' % self.request.POST['search_word']
+        post_list = Post.object.filter(Q(title__icontains=schWord) | Q(description__icontains=schWord) | Q(content__icontains=schWord)).distinct()
+        context = {}
+        context['form'] = form
+        context['search_term'] = schWord
+        context['object_list'] = post_list
+
+        return render(self.request, self.template_name, context)
 
 # TemplateView
 class TagTV(TemplateView):
