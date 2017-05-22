@@ -13,3 +13,9 @@ class ThumbnailImageFieldFile(ImageFieldFile):
     def _get_thumb_path(self):
         return _add_thumb(self.path)
     thumb_path = property(_get_thumb_path)
+
+    def _get_thumb_url(self):
+        return _add_thumb(self.url)
+    thumb_url = property(_get_thumb_url)
+
+    
