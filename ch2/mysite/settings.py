@@ -48,7 +48,7 @@ INSTALLED_APPS = [
     # REST framework Swagger
     'rest_framework_swagger',
     'tagging.apps.TaggingConfig',
-    'photo.app.PhotoConfig',
+    'photo.apps.PhotoConfig',
 ]
 
 MIDDLEWARE = [
