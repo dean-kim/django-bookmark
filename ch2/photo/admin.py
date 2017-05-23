@@ -13,7 +13,7 @@ class AlbumAdmin(admin.ModelAdmin):
     inlines = [PhotoInline]
     list_display = ('name', 'description')
 
-class PhotoAdmin(admin.ModelAdmin)
+class PhotoAdmin(admin.ModelAdmin):
     list_display = ('title', 'upload_date')
 
 admin.site.register(Album, AlbumAdmin)

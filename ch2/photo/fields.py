@@ -45,10 +45,10 @@ class ThumbnailImageFieldFile(ImageFieldFile):
 
         # 썸네일과 백그라운드 이미지를 합쳐서 정사각형 모양의 썸네일 이미지를 만듭니다. 정사각형의 빈 공간은 백그라운드 이미지에 의해서 흰색이 됩니다.
         background.paste(
-            img, ( int((size[0] - img.size[0]) / 2), int((size[1] - img.size[1]) / 2))
+            img, (int((size[0] - img.size[0]) / 2), int((size[1] - img.size[1]) / 2)))
 
         # 합쳐진 최종 이미지를 JPEG 형식으로 파일 시스템의 thumb_path 경로에 저장합니다.
-        background.save(self.thumb_path, 'JPEG'))
+        background.save(self.thumb_path, 'JPEG')
 
     # delete() 메소드 호출 시 원본 이미지뿐만 아니라 썸네일 이미지도 같이 삭제되도록 합니다.
     def delete(self, save=True):
