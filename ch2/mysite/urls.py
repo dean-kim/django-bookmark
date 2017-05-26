@@ -19,6 +19,12 @@ Including another URLconf
 from django.conf.urls import include, url
 from django.contrib import admin
 
+# static() 함수를 임포트합니다. static() 함수는 정적 파일을 처리하는 뷰를 호출하도록 그에 맞는 URL 패턴을 반환하는 함수입니다.
+from django.conf.urls.static import static
+
+# settings 변수를 임포트합니다. settings 변수는 settings.py 모듈에서 정의한 항목들을 담고 있는 객체를 가리키는 reference입니다.
+from django.conf import settings
+
 from mysite.views import HomeView
 
 # URLconf에서 뷰를 호출하므로 뷰 모델의 관련 클래스를 import.
@@ -40,8 +46,11 @@ urlpatterns = [
     url(r'^$', HomeView.as_view(), name='home'),
 
     # 북마크 앱의 APP_URLCONF를 포함하고 이름공간을 'bookmark'라고 지정
-    url(r'^bookmark/', include('bookmark.urls', namespace='bookmark')),
-    url(r'^blog/', include('blog.urls', namespace='blog')),
+    url(r'^bookmark/', include('bookmark.urlss', namespace='bookmark')),
+    url(r'^blog/', include('blog.urlss', namespace='blog')),
+
+    # 포토 앱의 APP_URLCONF를 포함하고, 이름공간을 'photo'라고 지정합니다.
+    url(r'^photo/', include('photo.urls', namespace='photo')),
 
     # Class-based views for Bookmark app - 아래의 코드들은 APP_URLCONF 로 옮기므로 주석처리
 
@@ -50,4 +59,4 @@ urlpatterns = [
     # url(r'^bookmark/$', BookmarkLV.as_view(), name='index'),
     # URL /bookmark/숫자 요청을 처리할 뷰 클래스를 BookmarkDV로 지정, URL 패턴의 이름은 'detail'로 명명
     # url(r'^bookmark/(?P<pk>\d+)/$', BookmarkDV.as_view(), name='detail'),
-]
+] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
