@@ -59,4 +59,11 @@ urlpatterns = [
     # url(r'^bookmark/$', BookmarkLV.as_view(), name='index'),
     # URL /bookmark/숫자 요청을 처리할 뷰 클래스를 BookmarkDV로 지정, URL 패턴의 이름은 'detail'로 명명
     # url(r'^bookmark/(?P<pk>\d+)/$', BookmarkDV.as_view(), name='detail'),
+
+    """
+    기존 URL 패턴에 static() 함수가 반환하는 URL 패턴을 추가합니다. static() 함수 형식은 다음과 같습니다.
+    static(prefix, view=django.views.static.serve, **kwargs)
+    즉 settings.MEDIA_URL로 정의된 /media/ URL 요청이 오면 django.views.static.serve() 뷰 함수가 처리하고,
+    이 뷰 함수에 document_root=settings.MEDIA_ROOT 키워드 인자가 전달됩니다.
+    """
 ] + static(settings.MEDIA_URL, document_root = settings.MEDIA_ROOT)
