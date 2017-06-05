@@ -27,6 +27,8 @@ from django.conf import settings
 
 from mysite.views import HomeView
 
+# 계정 등록을 처리하는 뷰를 임포트.
+# UserCreateView는 계정을 추가하는 뷰, UserCreateDoneTV는 계정 생성이 완료된 후에 보여줄 화면을 처리하는 뷰
 from mysite.views import UserCreateView, UserCreateDoneTV
 
 # URLconf에서 뷰를 호출하므로 뷰 모델의 관련 클래스를 import.
@@ -45,8 +47,13 @@ urlpatterns = [
     # url(r'^admin/', include(admin.site.urls))
     url(r'^admin/', admin.site.urls),
 
+    # 장고의 인증 URL(django.contrib.auth.urls)를 가져와서 사용.
+    # 장고의 URLconf에는 /login/, /logout/ 처럼 URL이 정의되어 있어서 그 앞에 URL추가를 원한다면 표시해야 함.
+    # 로그인에 필요한 URL은 /accounts/login/, 비번 변경은 /accounts/password_change
     url(r'^accounts/', include('django.contrib.auth.urls')),
+    # 계정 생성(가입) 처리를 하는 URL
     url(r'^accounts/register/$', UserCreateView.as_view(), name='register'),
+    # 계정 생성 완료 메세지를 보여주기 위한 URL
     url(r'^accounts/register/done/$', UserCreateDoneTV.as_view(), name='register_done'),
 
     url(r'^$', HomeView.as_view(), name='home'),
