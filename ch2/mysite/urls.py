@@ -27,6 +27,8 @@ from django.conf import settings
 
 from mysite.views import HomeView
 
+from mysite.views import UserCreateView, UserCreateDoneTV
+
 # URLconf에서 뷰를 호출하므로 뷰 모델의 관련 클래스를 import.
 # from bookmark.views import BookmarkLV, BookmarkDV - APP_URLCONF 로 옮길 줄을 주석처리함.
 
@@ -42,6 +44,10 @@ urlpatterns = [
     # url(r'^admin/', admin.site.urls)
     # url(r'^admin/', include(admin.site.urls))
     url(r'^admin/', admin.site.urls),
+
+    url(r'^accounts/', include('django.contrib.auth.urls')),
+    url(r'^accounts/register/$', UserCreateView.as_view(), name='register'),
+    url(r'^accounts/register/done/$', UserCreateDoneTV.as_view(), name='register_done'),
 
     url(r'^$', HomeView.as_view(), name='home'),
 
