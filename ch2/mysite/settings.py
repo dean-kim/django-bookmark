@@ -48,6 +48,8 @@ INSTALLED_APPS = [
     # REST framework Swagger
     'rest_framework_swagger',
     'tagging.apps.TaggingConfig',
+    'disqus',
+    'django.contrib.sites',
     'photo.apps.PhotoConfig',
 ]
 
