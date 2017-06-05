@@ -1,3 +1,5 @@
+# -*- coding: euckr -*-
+# coding=utf-8
 """
 Django settings for mysite project.
 
