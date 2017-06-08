@@ -8,22 +8,47 @@
 {% block content %}
 <div id="content">
     <h1>Please Login</h1>
+
+    {# 로그인 폼을 출력, 폼을 제출하는 경우, POST 방식으로 현재와 동일한 URL로 요청이 전송됨. #}
+    {# CSRF 공격을 방지하기 위해 {% csrf_token %} 태그를 사용함. #}
     <form action="." method="post">{% csrf_token %}
     {% if form.errors %}
-    <p class="errornote">Wrong! Please correct the error(s) below.</p>
+        {# 폼에 입력된 내용에 오류가 있는 경우 'Wrong! Please correct the error(s) below' 메세지 출력 #}
+        <p class="errornote">Wrong! Please correct the error(s) below.</p>
     {% endif %}
     <p>Please enter your id and password.</p>
+
+        {# 'fieldset'태그는 폼에서 비슷한 요소들을 묶어주는 역할을 함. 여기서는 Username, Password 입력 항목을 묶음. #}
         <fieldset class="aligned">
+            {% comment %}
+            Username 입력 요소를 출력
+            form 변수는 login() 뷰에서 넘겨주는 AuthenticationForm 객체임. AuthenticationForm는 장고에서 제공해주는 로그인용 기본 폼임.
+            form.username은 폼 객체의 username 필드를 의미함.
+            form.username.label_tag 변수는 username 필드의 레이블에 콜론(:)을 붙여줌. 여기서는 'Username:'을 출력함.
+            {% endcomment %}
             <div class="form-row">
                 {{ form.username.label_tag }} {{ form.username }}
             </div>
 
+            {% comment %}
+            Password 입력 요소를 출력.
+            form.password.label_tag 변수는 Password: 문구를 출력하고,
+            form.password는 AuthenticationForm 객체의 password 필드에 대한 위젯을 출력함.
+            {% endcomment %}
             <div class="form-row">
                 {{ form.password.label_tag }} {{ form.password }}
             </div>
         </fieldset>
         <div class="submit-row">
             <input type="submit" value="Log In"/>
+            {% comment %}
+            폼을 제출 시 폼의 next 항목에 {{ next }} 변수값을 할당함.
+            이 문장에 의해 login() 뷰가 POST 요청을 처리한 후, 즉 로그인이 성공한 경우에 {{ next }} 변수로 지정된 URL로 이동시켜줌.
+            이 입력요소는 hodden 타입이므로 폼으로 보이지는 않음.
+            {{ next }} 변수는 '/accounts/login/?next=/post/3/' 처럼 로그인 URL의 쿼리 문자열로 지정됨.
+            만인 URL에 next 쿼리 문자열이 없으면, settings.LOGIN_REDIRECT_URL 항목에 지정된 URL이 사용됨.
+            이 항목도 지정되어 있지 않으면, 디폴트로 '/accounts/profile/URL'을 {{ next }} 변수값으로 사용함.
+            {% endcomment %}
             <input type="hidden" name="next" value="{{ next }}" />
         </div>
 
