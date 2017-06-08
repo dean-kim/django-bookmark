@@ -13,8 +13,16 @@
 
 <div id="header">
     <h2 class="maintitle">Easy&amp;Fast Django Web Programming</h2>
+
+    {# {% if %}템플릿 태그를 사용해 로그인 여부 확인, 로그인하면 is_active()함수는 True를 반환, user 객체는 장고 기본 템플릿 변수이므로 모든 템플릿 파일에서 사용 가능함. #}
     {% if user.is_active %}
     <h4 class="welcome">Welcome,
+        {% comment %}
+        로그인한 경우는 Welcome, khkim 형식으로 username을 표시.
+        {% firstof %} 템플릿 태그는 다음에 오는 인자들 중에서 False가 아닌 첫 인자를 선택함.
+        user.get_short_name() 메소드는 User 객체의 first_name을, user.get_username() 메소드는 User 객체의 username을 반환함.
+        이 예제에서 first_name은 공백이므로 username이 출력됨.
+        {% endcomment %}
         <strong>{% firstof user.get_short_name user.get_username %}</strong> /
         <a href="{% url 'password_change %}">Change Password</a> /
         <a href="{% url 'logout' %}">Logout</a>
