@@ -10,6 +10,9 @@ from django.db import models
 from django.core.urlresolvers import reverse
 
 from tagging.fields import TagField
+
+from django.contrib.auth.models import User
+from django.utils.text import slugify
 # Create your models here.
 
 @python_2_unicode_compatible
@@ -47,7 +50,8 @@ class Post(models.Model):
     # modify_date 컬럼은 날짜와 시간을 입력하는 DateTimeField이며, auto_now 속성은 객체가 데이터베이스에 저장될 때의 시각을 자동으로 기록하게 합니다.
     # 즉, 객체가 변경될 때의 시각이 기록되는 것임.
     modify_date = models.DateTimeField('Modify Date', auto_now=True)
-    tah = TagField()
+    tag = TagField()
+    owner = models.ForeignKey(User, null=True)
 
     # 필드 속성 외에 필요한 파라미터가 있으면, Meta 내부 클래스로 정의합니다.
     class Meta:
@@ -79,3 +83,8 @@ class Post(models.Model):
     # 메소드 내에서는 장고의 내장 함수인 get_next_by_modify_date()를 호출함
     def get_next_post(self):
         return self.get_next_by_modify_date()
+
+    def save(self, *args, **kwargs):
+        if not self.id:
+            self.slug = slugify(self.title, allow_unicode=True)
+        super(Post, self).save(*args, **kwargs)
