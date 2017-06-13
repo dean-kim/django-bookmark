@@ -49,4 +49,16 @@ urlpatterns = [
 
     # Example: /search/
     url(r'^search/$', SearchFormView.as_view(), name='search'),
+
+    # Example: /add/
+    url(r'^add/$', PostCreateView.as_view(), name='add'),
+
+    # Example: /change/
+    url(r'^change/$', PostChangeLV.as_view(), name='change'),
+
+    # Example: /99/update/
+    url(r'^(?P<pk>[0-9]+)/update/$', PostUpdateView.as_view(), name='update'),
+
+    # Example: /99/delete/
+    url(r'^(?P<pk>[0-9]+/delete/$)', PostDeleteView.as_view(), name='delete'),
 ]
