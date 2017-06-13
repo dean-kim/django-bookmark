@@ -128,7 +128,12 @@ class TagTV(TemplateView):
 class PostCreateView(LoginRequiredMixin, CreateView):
     model = Post
     fields = ['title', 'slug', 'description', 'content', 'tag']
-    initial = ['slug': 'auto-filling-do-not-input']
+    # 폼의 slug 입력 항목에 대한 초기값을 지정. slug 필드는 title 필드로부터 자동으로 채워지는 필드.
+    # 이 기능은 models.py 파일의 Post 모델 정의에 있는 save() 함수에서 수행됨.
+    # 따라서 PostCreateView 뷰에서 레코드 생성 폼을 보여줄 때 slug 필드는 입력하지 말라는 의미로 초기값을 'auto-filling-do-not-input'로 지정
+    # 초기값은 작성자 임의로 정하면 됨.
+    initial = {'slug': 'auto-filling-do-not-input'}
+    #
     #fields = ['title', 'description', 'content', 'tag']
     success_url = reverse_lazy('blog:index')
 
