@@ -12,6 +12,10 @@ from django.core.urlresolvers import reverse
 from tagging.fields import TagField
 
 from django.contrib.auth.models import User
+
+# slug 필드를 자동으로 채우기 위해 slugify() 함수를 임포트.
+# slugify 함수는 원래 단어를 알파벳 소문자, 숫자, 밑줄, 하이픈으로만 구성된 단어로 만들어주는 함수.
+# 변환 예 : slugify("Django is a Python Web Framework")는 "django-is-a-python-web-framework"로 변환.
 from django.utils.text import slugify
 # Create your models here.
 
@@ -84,7 +88,11 @@ class Post(models.Model):
     def get_next_post(self):
         return self.get_next_by_modify_date()
 
+    # save() 메소드를 재정의, save 메소드는 모델 객체의 내용을 데이터베이스에 저장하는 메소드.
+    # 데이터베이스 테이블에 저장 시 self.id를 확인해 False인 경우, 즉 처음으로 저장하는 경우에만 slug 필드를 title 필드의 단어로 변환해 자동으로 채움.
     def save(self, *args, **kwargs):
         if not self.id:
             self.slug = slugify(self.title, allow_unicode=True)
+
+        # 부모 클래스의 save() 메소드를 호출해 객체의 내용을 테이블에 반영하는 save 메소드의 원래 기능을 수행함.
         super(Post, self).save(*args, **kwargs)
