@@ -14,6 +14,9 @@ from django.contrib.auth.forms import UserCreationForm
 # 지금 작성하고 있는 views.py 모듈이 로딩되고 처리되는 시점에 urls.py 모듈이 로딩되지 않을 수도 있으므로, reverse() 함수 대신 reverse_lazy() 함수를 임포트
 from django.core.urlresolvers import reverse_lazy
 
+# login_required() 함수를 임포트. login_required 함수는 데코레이터로 사용되는 함수로, 일반 함수에 적용함.
+# 기능은 사용자가 로그인했는지를 확인해 로그인한 경우는 원래 함수를 실행하고, 로그인이 되지 않은 경우는 로그인 페이지로 리다이렉트함.
+from django.contrib.auth.decorators import login_required
 
 #--- Homepage View
 class HomeView(TemplateView):
@@ -39,3 +42,12 @@ class UserCreateDoneTV(TemplateView):
 
     # User 레코드 생성, 즉 가입 처리가 완료된 후에 사용자에게 보여줄 템플릿의 파일명을 지정함.
     template_name = 'registration/register_done.html'
+
+# LoginRequiredMixin 클래스를 정의. login_required() 함수는 함수에만 적용할 수 있으므로, 클래스형 뷰에서는 이 LoginRequiredMixin
+# 클래스를 상속받아 사용하면 login_required() 데코레이터 기능을 제공할 수 있음.
+class LoginRequiredMixin(object):
+    # as_view() 메소드를 인스턴스 메소드가 아니라 클래스 메소드로 정의. as_view() 메소드가 view 변수에 할당됨.
+    @classmethod
+    def as_view(cls, **initkwargs):
+        view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
+        return login_required(view)
