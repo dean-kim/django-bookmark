@@ -49,5 +49,7 @@ class LoginRequiredMixin(object):
     # as_view() 메소드를 인스턴스 메소드가 아니라 클래스 메소드로 정의. as_view() 메소드가 view 변수에 할당됨.
     @classmethod
     def as_view(cls, **initkwargs):
+        # super() 메소드에 의해 LoginRequiredMixin의 상위 클래스에 있는 as_view() 메소드가 view 변수에 할당됨.
         view = super(LoginRequiredMixin, cls).as_view(**initkwargs)
+        # view 변수, 즉 LoginRequiredMixin의 상위 클래스에 있는 as_view()메소드에 login_required() 기능을 적용하고 그 결과를 반환함.
         return login_required(view)
