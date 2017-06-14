@@ -38,20 +38,20 @@
 <div id="menu">
     <li><a href="{% url 'home' %}">Home</a></li>
     <li><a href="{% url 'bookmark:index' %}">Bookmark</a></li>
-    <li><a href="{% url 'blog:index' %}">Blog</a></li>
+    <li><a href="{% url 'blog:index' %}">Post</a></li>
     <li><a href="{% url 'photo:index' %}">Photo</a></li>
 
     <li><a href="#">Add&bigtriangledown;</a>
     <ul>
-        <li><a href="#">Bookmark</a></li>
-        <li><a href="#">Blog</a></li>
+        <li><a href="{% url 'bookmark:add' %}">Bookmark</a></li>
+        <li><a href="{% url 'blog:add' %}">Post</a></li>
         <li><a href="#">Photo</a></li>
     </ul>
     </li>
     <li><a href="#">Change&bigtriangledown;</a>
         <ul>
-            <li><a href="#">Bookmark</a></li>
-            <li><a href="#">Blog</a></li>
+            <li><a href="{% url 'bookmark:change' %}">Bookmark</a></li>
+            <li><a href="{% url 'blog:change' %}">Blog</a></li>
             <li><a href="#">Photo</a></li>
         </ul>
     </li>
