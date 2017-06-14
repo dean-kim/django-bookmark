@@ -15,6 +15,7 @@
             <th>Delete</th>
         </tr>
 
+        {# object_list 각 항목을 순회하면서 테이블의 데이터행을 추가 #}
         {% for item in object_list %}
         <tr>
             <td>{{ item.title }}</td>
