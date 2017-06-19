@@ -9,11 +9,17 @@ from django.core.urlresolvers import reverse
 # 직접 만든 커스텀 필드입니다. 이 커스텀 필드는 fields.py에 정의되어 있습니다.
 from photo.fields import ThumbnailImageField
 
+from django.contrib.auth.models import User
+
 # Create your models here.
 @python_2_unicode_compatible
 class Album(models.Model):
     name = models.CharField(max_length=50)
     description = models.CharField('One Line Description', max_length=100, blank=True)
+
+    # Album과 User 테이블 간 관계 및 Photo, User 테이블 간 관계는 모두 N:1 관계이므로, 외래키 관계로 표현
+    # 또한 owner 필드는 NULL 값을 가질 수 있도록 정의
+    owner = models.ForeignKey(User, null=True)
 
     class Meta:
         ordering = ['name']
@@ -47,6 +53,10 @@ class Photo(models.Model):
 
     # upload_date 컬럼은 날짜와 시간을 입력하는 DateTimeField이며 auto_now_add 속성은 객체가 생성될 때의 시각을 자동으로 기록하게 합니다. 사진이 업로드되는 시간을 자동으로 기록합니다.
     upload_date = models.DateTimeField('Upload Date', auto_now_add=True)
+
+    # Album과 User 테이블 간 관계 및 Photo, User 테이블 간 관계는 모두 N:1 관계이므로, 외래키 관계로 표현
+    # 또한 owner 필드는 NULL 값을 가질 수 있도록 정의
+    owner = models.ForeignKey(User, null=True)
 
     # Meta 내부 클래스로, 객체 리스트를 출력할 때의 정렬 기준을 정의힙니다. title 컬럼을 기준으로 오름차순으로 정렬합니다.
     class Meta:
