@@ -9,6 +9,13 @@
 <div id="content">
 
     <h1>Album-Photo InlineFormSet</h1>
+    {# is_multipart() 메소드는 폼과 폼셋을 미리 체크해 multipart 인코딩이 필요한지 여부를 알려줌 #}
+    {# 반환값이 True이면 enctype="multipart/form-data"로 지정해야 합니다. #}
+    {# 이 예제에서는 폼셋에 이미지 필드가 있으므로 True를 반환합니다. #}
+    {# enctype 속성은 폼 데이터를 서버로 전송할 때 어떤 방식으로 데이터를 인코딩할 것인지를 결정함, POST 방식인 경우에만 사용되는 속성임. #}
+    {# multipart/form-data : 데이터가 변환되지 않고 그대로 서버로 전송. 파일이나 이미지 등의 바이너리 파일을 업로드할 때 사용 #}
+    {# application/x-www-form-urlencoded : 디폴트. 빈칸은 + 기호로 변환, $,# 등의 특수문자들도 아스키 16진수 값으로 반환 #}
+    {# text/plain : 빈칸은 + 기호로 변환되지만, 특수 문자들은 변환되지 않습니다. #}
     {% if form.is_multipart or formset.is_multipart %}
     <form enctype="multipart/form-data" method="post" action=".">
     {% else %}
@@ -25,8 +32,12 @@
 
     <h4>Create or Update Album contents.</h4>
 
+    {# fieldset HTML 태그는 폼에서 비슷한 요소들을 묶어주는 역할. 여기서는 Name과 Description 입력 항목을 묶어줌. #}
     <fieldset class="aligned">
         <div class="form-row">
+            {# Name 입력 요소를 출력. form 변수는 Album 모델을 사용해 장고 내부적으로 만들어주는 폼 객체임. #}
+            {# form.name은 폼 객체의 name 필드를 의미함. #}
+            {# form.name.label_tag 변수는 name 필드의 레이블에 콜론(:)을 붙여줌. 여기서는 'Name:'으로 출력됨 #}
             {{ form.name.label_tag }} {{ form.name }}
         </div>
         <div class="form-row">
@@ -36,8 +47,10 @@
 
     <h4>Create or Update Photo contents</h4>
 
+    {# 폼셋에 들어있는 각 폼을 다루는 경우에는 {{ formset.management_form }} 변수를 반드시 투가해야 됨. 장고의 템플릿 엔진이 폼셋에 들어있는 폼의 개수 등을 알 수 있어야 하기 때문임. #}
     {{ formset.management_form }}
     {% for form in formset %}
+        {# 각 폼의 모든 필드를 {% for %} 템플릿 태그로 순회하는 경우가 아니라면 {{ form.id }} 변수는 반드시 추가해야 함. 장고 템플릿 엔진이 어느 폼을 처리하고 있는지 식별할 수 있어야 하기 때문임. #}
         {{ form.id }}
     <fieldset class="aligned">
         <div class="form-row">
