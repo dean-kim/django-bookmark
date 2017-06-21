@@ -69,9 +69,26 @@ ROOT_URLCONF = 'mysite.urls'
 
 TEMPLATES = [
     {
+        # 사용할 템플릿 엔진을 지정 여기서는 장고 자체 템플릿 엔진 사용
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
+        # 프로젝트 템플릿 파일이 위치한 디렉토리 지정.
+        # 다음에 나오는 APP_DIRS 항목과 관련된 애플리케이션 템플릿 디렉토리보다 우선해 파일을 찾습니다.
+        # 디폴트는 빈 리스트임.
         'DIRS': [os.path.join(BASE_DIR, 'templates')],
+        # 템플릿 파일을 찾을 때, 애플리케이션 내의 템플릿 디렉토리에서도 찾을지 여부를 지정.
+        # 디폴트는 False이지만 startproject 명령에 의해 settings.py 파일이 만들어질 때는 True로 설정됨.
         'APP_DIRS': True,
+        """
+        템플릿 엔진에 따라 해당하는 옵션 항목들을 설정. 장고 템플릿 엔진을 사용하는 경우 다음과 같은 옵션 항목이 있습니다.
+        - context_processors : 웹 요청에 들어 있는 파라미터들(request)을 인자로 받아서 컨텍스트 데이터로 사용될 사전을 만들어주는
+        호출 가능한 객체(callable)를 지정합니다. 보통은 함수로 정의되는데, 이 함수들이 반환하는 사전은 최종 컨텍스트 데이터를 만들 때
+        추가됩니다. 디폴트는 빈 리스트입니다.
+        - debug : 템플릿 디버그 모드를 설정. True로 설정하면, 템플릿 렌더링 과정에서 에러가 발생하면 템플릿 파일 내에서 에러가 발생한 줄을
+        다른 색으로 표시해줌. 디폴트는 다른 설정 항목인 DEBUG 항목의 값을 따릅니다.
+        - loaders : 템플릿 로더 클래스를 지정. 로더는 템플릿 파일을 찾아서 메모리로 로딩하는 역할을 수행
+        - string_if_valid : 템플릿 변수가 잘못된 경우, 대신 사용할 문자열을 지정. 디폴트는 공백 문자열임.
+        - file_charset : 템플릿 파일을 읽어 디코딩할 때 사용하는 문자셋을 지정. 디폴트는 다른 설정 항목인 FILE_CHARSET 항목의 값을 따릅니다.
+        """
         'OPTIONS': {
             'context_processors': [
                 'django.template.context_processors.debug',
